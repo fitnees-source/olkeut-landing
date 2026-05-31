@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* { margin: 0; padding: 0; }
+body { background: #080808; display: flex; justify-content: center; align-items: center; width: 400px; height: 400px; }
+canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="400" height="400"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+// 배경
+ctx.fillStyle = '#080808';
+roundRect(ctx, 0, 0, 400, 400, 80);
+ctx.fill();
+
+// 테두리
+ctx.strokeStyle = '#222222';
+ctx.lineWidth = 1;
+roundRect(ctx, 0, 0, 400, 400, 80);
+ctx.stroke();
+
+// 번개
+ctx.fillStyle = '#ffffff';
+ctx.beginPath();
+ctx.moveTo(220, 80);
+ctx.lineTo(160, 200);
+ctx.lineTo(200, 200);
+ctx.lineTo(180, 320);
+ctx.lineTo(260, 180);
+ctx.lineTo(215, 180);
+ctx.lineTo(240, 80);
+ctx.closePath();
+ctx.fill();
+
+// 텍스트
+ctx.fillStyle = '#444444';
+ctx.font = '500 16px monospace';
+ctx.textAlign = 'center';
+ctx.letterSpacing = '6px';
+ctx.fillText('DUSK LABS', 200, 370);
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+// PNG 다운로드
+const a = document.createElement('a');
+a.download = 'dusklabs_profile.png';
+a.href = canvas.toDataURL('image/png');
+a.click();
+</script>
+</body>
+</html>
